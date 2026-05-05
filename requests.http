@@ -1,0 +1,23 @@
+### Get all creatures
+GET http://localhost:8080/api/creatures
+
+
+
+### Create creature
+POST http://localhost:8080/api/creatures
+Content-Type: application/json
+
+{
+  "name": "Stormfang",
+  "species": "Sky Predator",
+  "dangerLevel": 4,
+  "condition": "WATCH",
+  "status": "ACTIVE",
+  "habitatId": 1
+}
+
+### Get creature by ID
+GET http://localhost:8080/api/creatures/1
+
+### Get creature by ID - not found
+GET http://localhost:8080/api/creatures/999

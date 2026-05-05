@@ -3,6 +3,7 @@ package org.example.neonarkcreaturemanagementsystem.controller;
 import org.example.neonarkcreaturemanagementsystem.entity.Creature;
 import org.example.neonarkcreaturemanagementsystem.repository.CreatureRepository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -20,4 +21,18 @@ public class CreatureController {
     public List<Creature> getAllCreatures() {
         return repository.findAll();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Creature> getCreatureById(@PathVariable Long id) {
+        return repository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public Creature createCreature(@RequestBody Creature creature) {
+        return repository.save(creature);
+    }
+
+
 }
