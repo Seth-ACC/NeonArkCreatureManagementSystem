@@ -34,5 +34,14 @@ public class CreatureController {
         return repository.save(creature);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCreature(@PathVariable Long id) {
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

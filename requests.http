@@ -21,3 +21,11 @@ GET http://localhost:8080/api/creatures/1
 
 ### Get creature by ID - not found
 GET http://localhost:8080/api/creatures/999
+
+
+
+### Delete creature (existing)
+DELETE http://localhost:8080/api/creatures/1
+
+### Delete creature (not found)
+DELETE http://localhost:8080/api/creatures/999
