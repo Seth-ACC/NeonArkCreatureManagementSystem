@@ -75,3 +75,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/api/creatures/2/observations
+
+###
+GET http://localhost:8080/api/feedings?time=14:00
