@@ -4,6 +4,7 @@ import org.example.neonarkcreaturemanagementsystem.entity.Creature;
 import org.example.neonarkcreaturemanagementsystem.repository.CreatureRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class CreatureController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Creature createCreature(@RequestBody Creature creature) {
         return repository.save(creature);
     }
