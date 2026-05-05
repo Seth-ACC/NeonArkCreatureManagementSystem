@@ -78,3 +78,6 @@ GET http://localhost:8080/api/creatures/2/observations
 
 ###
 GET http://localhost:8080/api/feedings?time=14:00
+
+###
+GET http://localhost:8080/api/admin/users
