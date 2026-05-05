@@ -1,12 +1,12 @@
 CREATE TABLE creatures (
-       id SERIAL PRIMARY KEY,
+       id BIGSERIAL PRIMARY KEY,
        name VARCHAR(100) NOT NULL,
        species VARCHAR(100) NOT NULL,
        danger_level INT NOT NULL,
        condition VARCHAR(50) NOT NULL,
        notes TEXT,
        status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
-       habitat_id INT NOT NULL,
+       habitat_id BIGINT NOT NULL,
 
        CONSTRAINT fk_creatures_habitat
            FOREIGN KEY (habitat_id)
