@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Get creature by ID
-GET http://localhost:8080/api/creatures/1
+GET http://localhost:8080/api/creatures/4
 
 ### Get creature by ID - not found
 GET http://localhost:8080/api/creatures/999
@@ -25,38 +25,53 @@ GET http://localhost:8080/api/creatures/999
 
 
 ### Delete creature (existing)
-DELETE http://localhost:8080/api/creatures/1
+DELETE http://localhost:8080/api/creatures/2
 
 ### Delete creature (not found)
 DELETE http://localhost:8080/api/creatures/999
 
 
 ### Update creature
-PUT http://localhost:8080/api/creatures/2
+PUT http://localhost:8080/api/creatures/5/name
 Content-Type: application/json
 
 {
-  "name": "Stormfang Prime",
-  "species": "Sky Predator",
-  "dangerLevel": 4,
-  "condition": "WATCH",
-  "status": "ACTIVE",
-  "notes": "Updated after second observation",
-  "habitatId": 1
+  "name": "K"
 }
 
 ###
 
-### Update creature - not found
-PUT http://localhost:8080/api/creatures/999
+### Rename creature - success
+PUT http://localhost:8080/api/creatures/3/name
 Content-Type: application/json
 
 {
-  "name": "Ghost",
-  "species": "Unknown",
-  "dangerLevel": 1,
-  "condition": "STABLE",
-  "status": "ACTIVE",
-  "notes": "Should not save",
-  "habitatId": 1
+  "name": "Shadowfang"
 }
+
+### Rename creature - blank name, expect 400
+PUT http://localhost:8080/api/creatures/3/name
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Rename creature - not found, expect 404
+PUT http://localhost:8080/api/creatures/999/name
+Content-Type: application/json
+
+{
+  "name": "Ghostfang"
+}
+
+### Rename creature - duplicate in same habitat, expect 409
+PUT http://localhost:8080/api/creatures/4/name
+Content-Type: application/json
+
+{
+  "name": "Sunfang"
+}
+
+###
+GET http://localhost:8080/api/creatures/2/observations

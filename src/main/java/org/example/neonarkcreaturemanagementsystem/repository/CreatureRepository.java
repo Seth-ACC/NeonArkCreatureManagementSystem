@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface CreatureRepository extends JpaRepository<Creature, Long> {
+    boolean existsByHabitatIdAndNameIgnoreCase(Long habitatId, String name);
 }
+
+
 
 // No extra methods needed for basic "read" functionality
 
