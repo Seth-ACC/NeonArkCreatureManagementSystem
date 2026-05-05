@@ -34,6 +34,27 @@ public class CreatureController {
         return repository.save(creature);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Creature> updateCreature(
+            @PathVariable Long id,
+            @RequestBody Creature updatedCreature
+    ) {
+        return repository.findById(id)
+                .map(existingCreature -> {
+                    existingCreature.setName(updatedCreature.getName());
+                    existingCreature.setSpecies(updatedCreature.getSpecies());
+                    existingCreature.setDangerLevel(updatedCreature.getDangerLevel());
+                    existingCreature.setCondition(updatedCreature.getCondition());
+                    existingCreature.setStatus(updatedCreature.getStatus());
+                    existingCreature.setNotes(updatedCreature.getNotes());
+                    existingCreature.setHabitatId(updatedCreature.getHabitatId());
+
+                    Creature savedCreature = repository.save(existingCreature);
+                    return ResponseEntity.ok(savedCreature);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCreature(@PathVariable Long id) {
         if (!repository.existsById(id)) {
@@ -43,5 +64,4 @@ public class CreatureController {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 }

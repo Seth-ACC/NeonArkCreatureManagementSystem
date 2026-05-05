@@ -29,3 +29,34 @@ DELETE http://localhost:8080/api/creatures/1
 
 ### Delete creature (not found)
 DELETE http://localhost:8080/api/creatures/999
+
+
+### Update creature
+PUT http://localhost:8080/api/creatures/2
+Content-Type: application/json
+
+{
+  "name": "Stormfang Prime",
+  "species": "Sky Predator",
+  "dangerLevel": 4,
+  "condition": "WATCH",
+  "status": "ACTIVE",
+  "notes": "Updated after second observation",
+  "habitatId": 1
+}
+
+###
+
+### Update creature - not found
+PUT http://localhost:8080/api/creatures/999
+Content-Type: application/json
+
+{
+  "name": "Ghost",
+  "species": "Unknown",
+  "dangerLevel": 1,
+  "condition": "STABLE",
+  "status": "ACTIVE",
+  "notes": "Should not save",
+  "habitatId": 1
+}
