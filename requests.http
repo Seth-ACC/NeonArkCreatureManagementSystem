@@ -4,7 +4,7 @@ GET http://localhost:8080/api/creatures
 
 
 ### Create creature
-POST http://localhost:8080/api/creatures/3
+POST http://localhost:8080/api/creatures
 Content-Type: application/json
 
 {
@@ -30,14 +30,6 @@ DELETE http://localhost:8080/api/creatures/3
 ### Delete creature (not found)
 DELETE http://localhost:8080/api/creatures/999
 
-
-### Update creature
-PUT http://localhost:8080/api/creatures/5/name
-Content-Type: application/json
-
-{
-  "name": "K"
-}
 
 ###
 
@@ -66,18 +58,18 @@ Content-Type: application/json
 }
 
 ### Rename creature - duplicate in same habitat, expect 409
-PUT http://localhost:8080/api/creatures/4/name
+PUT http://localhost:8080/api/creatures/7/name
 Content-Type: application/json
 
 {
-  "name": "Sunfang"
+  "name": "Cloudsnap"
 }
 
 ###
 GET http://localhost:8080/api/creatures/3/observations
 
 ###
-GET http://localhost:8080/api/feedings?time=14:00
+GET http://localhost:8080/api/feedings?time=23:59
 
 ###
 GET http://localhost:8080/api/admin/users
