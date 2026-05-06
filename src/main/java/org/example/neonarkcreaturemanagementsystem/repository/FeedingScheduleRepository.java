@@ -9,4 +9,6 @@ import java.util.List;
 public interface FeedingScheduleRepository extends JpaRepository<FeedingSchedule, Long> {
 
     List<FeedingSchedule> findByFeedingTime(LocalTime feedingTime);
+
+    boolean existsByCreatureId(Long creatureId);
 }
