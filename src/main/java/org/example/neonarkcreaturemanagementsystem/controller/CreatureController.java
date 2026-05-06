@@ -4,7 +4,6 @@ import org.example.neonarkcreaturemanagementsystem.dto.CreatureSummaryResponse;
 import org.example.neonarkcreaturemanagementsystem.dto.RenameCreatureRequest;
 import org.example.neonarkcreaturemanagementsystem.entity.Creature;
 import org.example.neonarkcreaturemanagementsystem.service.CreatureService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +30,7 @@ public class CreatureController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Creature createCreature(@RequestBody Creature creature) {
+    public ResponseEntity<?> createCreature(@RequestBody Creature creature) {
         return creatureService.createCreature(creature);
     }
 

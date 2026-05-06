@@ -4,6 +4,8 @@ import org.example.neonarkcreaturemanagementsystem.cli.dto.CreatureSummaryDto;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.CreatureDetailDto;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.CreatureObservationsDto;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.FeedingLookupDto;
+import org.example.neonarkcreaturemanagementsystem.cli.dto.AdminUserDto;
+import java.util.List;
 
 import java.util.List;
 
@@ -102,5 +104,24 @@ public class TablePrinter {
         }
 
         System.out.println("------------------------------------------------------------");
+    }
+
+    public static void printAdminUsersTable(List<AdminUserDto> users) {
+
+        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.printf("%-25s %-35s %-15s %-15s%n", "Full Name", "Email", "Phone", "Role");
+        System.out.println("-------------------------------------------------------------------------------------------");
+
+        for (AdminUserDto user : users) {
+            System.out.printf(
+                    "%-25s %-35s %-15s %-15s%n",
+                    user.fullName,
+                    user.email,
+                    user.phone,
+                    user.role
+            );
+        }
+
+        System.out.println("-------------------------------------------------------------------------------------------");
     }
 }

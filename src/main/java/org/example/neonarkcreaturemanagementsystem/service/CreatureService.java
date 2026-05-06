@@ -92,8 +92,46 @@ public class CreatureService {
         return ResponseEntity.ok(response);
     }
 
-    public Creature createCreature(Creature creature) {
-        return repository.save(creature);
+    public ResponseEntity<?> createCreature(Creature creature) {
+
+        if (creature.getName() == null || creature.getName().isBlank()) {
+            return ResponseEntity.badRequest().body("Creature name is required.");
+        }
+
+        if (creature.getSpecies() == null || creature.getSpecies().isBlank()) {
+            return ResponseEntity.badRequest().body("Creature species is required.");
+        }
+
+        if (creature.getDangerLevel() < 1 || creature.getDangerLevel() > 5) {
+            return ResponseEntity.badRequest().body("Danger level must be between 1 and 5.");
+        }
+
+        if (creature.getCondition() == null ||
+                !(creature.getCondition().equals("STABLE") ||
+                        creature.getCondition().equals("WATCH") ||
+                        creature.getCondition().equals("CRITICAL") ||
+                        creature.getCondition().equals("QUARANTINE"))) {
+            return ResponseEntity.badRequest().body("Condition must be STABLE, WATCH, CRITICAL, or QUARANTINE.");
+        }
+
+        if (creature.getStatus() == null ||
+                !(creature.getStatus().equals("ACTIVE") ||
+                        creature.getStatus().equals("REMOVED"))) {
+            return ResponseEntity.badRequest().body("Status must be ACTIVE or REMOVED.");
+        }
+
+        if (creature.getHabitatId() == null) {
+            return ResponseEntity.badRequest().body("Habitat ID is required.");
+        }
+
+        try {
+            Creature savedCreature = repository.save(creature);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedCreature);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Creature could not be created. Check for duplicate name in the same habitat or invalid habitat ID.");
+        }
     }
 
     public ResponseEntity<?> renameCreature(Long id, String requestedName) {

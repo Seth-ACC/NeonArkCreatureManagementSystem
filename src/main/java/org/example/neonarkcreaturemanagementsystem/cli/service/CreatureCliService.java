@@ -9,6 +9,9 @@ import org.example.neonarkcreaturemanagementsystem.cli.dto.CreatureObservationsD
 import org.example.neonarkcreaturemanagementsystem.cli.dto.FeedingLookupDto;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.RenameCreatureResponse;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.CreateCreatureResponse;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.example.neonarkcreaturemanagementsystem.cli.dto.AdminUserDto;
+import java.util.List;
 import org.example.neonarkcreaturemanagementsystem.cli.util.TablePrinter;
 
 import java.util.List;
@@ -237,10 +240,23 @@ public class CreatureCliService {
 
         String response = apiClient.getAllUsers();
 
-        System.out.println();
-        System.out.println("SYSTEM USERS");
-        System.out.println("--------------------------------------------------");
-        System.out.println(response);
-        System.out.println("--------------------------------------------------");
+        try {
+            String jsonBody = response.substring(response.indexOf("\n") + 1);
+
+            List<AdminUserDto> users =
+                    objectMapper.readValue(jsonBody, new TypeReference<List<AdminUserDto>>() {});
+
+            System.out.println();
+            System.out.println("SYSTEM USERS");
+
+            TablePrinter.printAdminUsersTable(users);
+
+        } catch (Exception e) {
+            System.out.println();
+            System.out.println("SYSTEM USERS");
+            System.out.println("--------------------------------------------------");
+            System.out.println(response);
+            System.out.println("--------------------------------------------------");
+        }
     }
 }
