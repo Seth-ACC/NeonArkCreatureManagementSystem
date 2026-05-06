@@ -37,26 +37,20 @@ public class CreatureMenu {
                     break;
 
                 case "3":
-                    System.out.print("Enter creature name: ");
-                    String name = scanner.nextLine();
+                    String name = readRequiredText("Enter creature name: ");
 
-                    System.out.print("Enter species: ");
-                    String species = scanner.nextLine();
+                    String species = readRequiredText("Enter species: ");
 
-                    System.out.print("Enter danger level (1-5): ");
-                    int dangerLevel = Integer.parseInt(scanner.nextLine());
+                    int dangerLevel = readDangerLevel();
 
-                    System.out.print("Enter condition (STABLE, WATCH, CRITICAL, QUARANTINE): ");
-                    String condition = scanner.nextLine().toUpperCase();
+                    String condition = readCondition();
 
                     System.out.print("Enter notes: ");
                     String notes = scanner.nextLine();
 
-                    System.out.print("Enter status (ACTIVE or REMOVED): ");
-                    String status = scanner.nextLine().toUpperCase();
+                    String status = readStatus();
 
-                    System.out.print("Enter habitat ID: ");
-                    long habitatId = Long.parseLong(scanner.nextLine());
+                    long habitatId = readPositiveLong("Enter habitat ID: ");
 
                     service.registerCreature(
                             name,
@@ -74,8 +68,7 @@ public class CreatureMenu {
                     System.out.print("Enter creature ID: ");
                     Long renameId = Long.parseLong(scanner.nextLine());
 
-                    System.out.print("Enter new creature name: ");
-                    String newName = scanner.nextLine();
+                    String newName = readRequiredText("Enter new creature name: ");
 
                     System.out.print("Confirm rename? (Y/N): ");
                     String confirmRename = scanner.nextLine();
@@ -169,5 +162,92 @@ public class CreatureMenu {
         System.out.println("8. View System Users");
         System.out.println("0. Exit");
         System.out.println("====================================");
+    }
+
+    private int readDangerLevel() {
+        while (true) {
+            System.out.print("Enter danger level (1-5): ");
+
+            try {
+                int dangerLevel = Integer.parseInt(scanner.nextLine());
+
+                if (dangerLevel >= 1 && dangerLevel <= 5) {
+                    return dangerLevel;
+                }
+
+                System.out.println("Danger level must be between 1 and 5.");
+
+            } catch (NumberFormatException e) {
+                System.out.println("Danger level must be a whole number.");
+            }
+        }
+    }
+
+    private String readCondition() {
+        while (true) {
+            System.out.print("Enter condition (STABLE, WATCH, CRITICAL, QUARANTINE): ");
+            String condition = scanner.nextLine().trim().toUpperCase();
+
+            if (condition.equals("STABLE") ||
+                    condition.equals("WATCH") ||
+                    condition.equals("CRITICAL") ||
+                    condition.equals("QUARANTINE")) {
+                return condition;
+            }
+
+            System.out.println("Invalid condition. Allowed values: STABLE, WATCH, CRITICAL, QUARANTINE.");
+        }
+    }
+
+    private String readStatus() {
+        while (true) {
+            System.out.print("Enter status (ACTIVE or REMOVED): ");
+            String status = scanner.nextLine().trim().toUpperCase();
+
+            if (status.equals("ACTIVE") || status.equals("REMOVED")) {
+                return status;
+            }
+
+            System.out.println("Invalid status. Allowed values: ACTIVE, REMOVED.");
+        }
+    }
+
+    private String readRequiredText(String prompt) {
+
+        while (true) {
+
+            System.out.print(prompt);
+
+            String input = scanner.nextLine().trim();
+
+            if (!input.isBlank()) {
+                return input;
+            }
+
+            System.out.println("This field is required.");
+        }
+    }
+
+    private long readPositiveLong(String prompt) {
+
+        while (true) {
+
+            System.out.print(prompt);
+
+            try {
+
+                long value = Long.parseLong(scanner.nextLine());
+
+                if (value > 0) {
+                    return value;
+                }
+
+                System.out.println("Value must be greater than 0.");
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("Please enter a valid number.");
+            }
+        }
     }
 }
