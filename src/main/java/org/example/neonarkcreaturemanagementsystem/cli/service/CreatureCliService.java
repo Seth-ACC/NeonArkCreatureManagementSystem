@@ -9,6 +9,7 @@ import org.example.neonarkcreaturemanagementsystem.cli.dto.CreatureObservationsD
 import org.example.neonarkcreaturemanagementsystem.cli.dto.FeedingLookupDto;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.RenameCreatureResponse;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.CreateCreatureResponse;
+import org.example.neonarkcreaturemanagementsystem.cli.dto.RemoveCreatureResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.example.neonarkcreaturemanagementsystem.cli.dto.AdminUserDto;
 import java.util.List;
@@ -175,9 +176,34 @@ public class CreatureCliService {
 
         System.out.println();
         System.out.println("REMOVE CREATURE");
-        System.out.println("--------------------------------------------------");
-        System.out.println(response);
-        System.out.println("--------------------------------------------------");
+
+        if (response.equals("Creature not found.")) {
+            System.out.println("--------------------------------------------------");
+            System.out.println(response);
+            System.out.println("--------------------------------------------------");
+            return;
+        }
+
+        try {
+            String jsonBody = response.substring(response.indexOf("\n") + 1);
+
+            RemoveCreatureResponse removeResponse =
+                    objectMapper.readValue(jsonBody, RemoveCreatureResponse.class);
+
+            System.out.println("--------------------------------------------------");
+            System.out.println("Status: 200");
+            System.out.println(removeResponse.message);
+            System.out.println();
+            System.out.println("ID: " + removeResponse.id);
+            System.out.println("Name: " + removeResponse.name);
+            System.out.println("Status: " + removeResponse.status);
+            System.out.println("--------------------------------------------------");
+
+        } catch (Exception e) {
+            System.out.println("--------------------------------------------------");
+            System.out.println(response);
+            System.out.println("--------------------------------------------------");
+        }
     }
 
     public void viewCreatureObservations(Long id) {
