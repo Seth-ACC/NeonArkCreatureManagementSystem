@@ -13,21 +13,27 @@ public class TablePrinter {
 
     public static void printCreatureSummaryTable(List<CreatureSummaryDto> creatures) {
 
-        System.out.println("---------------------------------------------------------------------");
-        System.out.printf("%-5s %-20s %-25s %-10s%n", "ID", "Name", "Habitat", "Status");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------------");
+        System.out.printf(
+                "%-5s %-18s %-18s %-22s %-8s %-14s %-10s%n",
+                "ID", "Name", "Species", "Habitat", "Danger", "Condition", "Status"
+        );
+        System.out.println("-----------------------------------------------------------------------------------------------------");
 
         for (CreatureSummaryDto creature : creatures) {
             System.out.printf(
-                    "%-5d %-20s %-25s %-10s%n",
+                    "%-5d %-18s %-18s %-22s %-8d %-14s %-10s%n",
                     creature.id,
                     creature.name,
+                    creature.species,
                     creature.habitatName,
+                    creature.dangerLevel,
+                    creature.condition,
                     creature.status
             );
         }
 
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------------");
     }
 
     public static void printCreatureDetail(CreatureDetailDto creature) {

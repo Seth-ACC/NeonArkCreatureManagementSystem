@@ -37,7 +37,10 @@ public class CreatureService {
         List<Object[]> results = entityManager.createNativeQuery("""
         SELECT c.id,
                c.name,
+               c.species,
                h.biome AS habitat_name,
+               c.danger_level,
+               c.condition,
                c.status
         FROM creatures c
         JOIN habitats h ON c.habitat_id = h.id
@@ -49,7 +52,10 @@ public class CreatureService {
                         ((Number) row[0]).longValue(),
                         (String) row[1],
                         (String) row[2],
-                        (String) row[3]
+                        (String) row[3],
+                        ((Number) row[4]).intValue(),
+                        (String) row[5],
+                        (String) row[6]
                 ))
                 .toList();
     }
